@@ -43,6 +43,15 @@ const PatientForm = () => {
     }
   }
 
+  const form = useForm<z.infer<typeof userFormValidation>>({
+    resolver: zodResolver(userFormValidation),
+    defaultValues: {
+      name: "",
+      email: "",
+      phone: "",
+    },
+  });
+
   return (
     <Form {...form}>
       <form
