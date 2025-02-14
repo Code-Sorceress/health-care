@@ -11,18 +11,9 @@ import { useState } from "react";
 import { UserFormValidation } from "@/lib/validation";
 import { useRouter } from "next/navigation";
 import { createUser } from "@/lib/actions/patient.actions";
+import { FormFieldType } from "./PatientForm";
 
-export enum FormFieldType {
-  INPUT = "input",
-  TEXTAREA = "textarea",
-  PHONE_INPUT = "phoneInput",
-  CHECKBOX = "checkbox",
-  DATE_PICKER = "datePicker",
-  SELECT = "select",
-  SKELETON = "skeleton",
-}
-
-const PatientForm = () => {
+const AppointmentForm = () => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
 
@@ -100,4 +91,4 @@ const PatientForm = () => {
   );
 };
 
-export default PatientForm;
+export default AppointmentForm;
