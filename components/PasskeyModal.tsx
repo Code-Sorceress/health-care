@@ -17,8 +17,7 @@ import {
   InputOTPSeparator,
   InputOTPSlot,
 } from "@/components/ui/input-otp";
-import { encryptKey } from "@/lib/utils";
-import { Value } from "@radix-ui/react-select";
+import { decryptKey, encryptKey } from "@/lib/utils";
 
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
@@ -27,7 +26,7 @@ import React, { useEffect, useState } from "react";
 const PasskeyModal = () => {
   const router = useRouter();
   const path = usePathname();
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
   const [passkey, setPasskey] = useState("");
   const [error, setError] = useState("");
 
@@ -37,8 +36,10 @@ const PasskeyModal = () => {
       : null;
 
   useEffect(() => {
+    const accessKey = encryptedKey && decryptKey(encryptedKey);
+
     if (path) {
-      if (passkey === process.env.NEXT_PUBLIC_ADMIN_PASSKEY) {
+      if (accessKey === process.env.NEXT_PUBLIC_ADMIN_PASSKEY?.toString()) {
         setOpen(false);
         router.push("/admin");
       } else {
