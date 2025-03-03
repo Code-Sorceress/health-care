@@ -21,7 +21,7 @@ import { decryptKey, encryptKey } from "@/lib/utils";
 
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 const PasskeyModal = () => {
   const router = useRouter();
@@ -38,14 +38,13 @@ const PasskeyModal = () => {
   useEffect(() => {
     const accessKey = encryptedKey && decryptKey(encryptedKey);
 
-    if (path) {
-      if (accessKey === process.env.NEXT_PUBLIC_ADMIN_PASSKEY?.toString()) {
+    if (path)
+      if (accessKey === process.env.NEXT_PUBLIC_ADMIN_PASSKEY!.toString()) {
         setOpen(false);
         router.push("/admin");
       } else {
         setOpen(true);
       }
-    }
   }, [encryptedKey]);
 
   const validatePasskey = (
@@ -66,7 +65,7 @@ const PasskeyModal = () => {
 
   const closeModal = () => {
     setOpen(false);
-    router.push("/");
+    router.push("/admin");
   };
 
   return (
